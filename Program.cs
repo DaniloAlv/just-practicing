@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-static void Agrupar()
+﻿static void Agrupar()
 {
     IList<Employee> employees = new List<Employee>
     {
@@ -45,13 +43,6 @@ static void Agrupar()
 }
 
 Agrupar();
-public class Employee
-{
-    public string Name { get; set; }
-    public string Company { get; set; }
-    public int Age { get; set; }
-}
-
 
 static bool IsPalindrome(string word)
 {
@@ -142,10 +133,16 @@ Node node = new Node
 IList<int> numerosArvoreOrdenados = new List<int>();
 Console.WriteLine($"Valores da árvore em ordem crescente: {string.Join(" ", OrdenarArvore(node, ref numerosArvoreOrdenados))}");
 
-
 class Node 
 {
     public int Value { get; set; }
     public Node? Left { get; set; }
     public Node? Right { get; set; }
+}
+
+public class Employee
+{
+    public string Name { get; set; }
+    public string Company { get; set; }
+    public int Age { get; set; }
 }
