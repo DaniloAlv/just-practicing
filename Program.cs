@@ -1,5 +1,58 @@
 ﻿using System.Text;
 
+static void Agrupar()
+{
+    IList<Employee> employees = new List<Employee>
+    {
+        new Employee { Name = "Danilo", Company = "Google", Age = 26 },
+        new Employee { Name = "Gustavo", Company = "IBM", Age = 25 },
+        new Employee { Name = "Larissa", Company = "Amazon", Age = 23 },
+        new Employee { Name = "Vlauber", Company = "Amazon", Age = 23 },
+        new Employee { Name = "Guilherme", Company = "IBM", Age = 32 },
+        new Employee { Name = "Fernanda", Company = "Amazon", Age = 45 },
+        new Employee { Name = "Augusto", Company = "Google", Age = 29 },
+        new Employee { Name = "Renata", Company = "Amazon", Age = 37 },
+        new Employee { Name = "Cristina", Company = "IBM", Age = 28 }
+    };
+
+    var t = employees
+        .GroupBy(emp => emp.Company, (key, emps) => new 
+        {
+            Company = key, 
+            AverageAgeCompany = Math.Round(emps.Average(e => e.Age))
+        });
+    
+    Console.WriteLine("--- Usando diretamente o GroupBy ---");
+    foreach (var emp in t)
+        Console.WriteLine($"Média de idade na {emp.Company} é {emp.AverageAgeCompany}");
+
+    var groupByCompany = employees
+        .Select(emp => new 
+        {
+            Company = emp.Company, 
+            Age = emp.Age
+        })
+        .GroupBy(emp => emp.Company, (a, b) => new
+        {
+            Company = a, 
+            AverageAge = Math.Round(b.Average(e => e.Age))
+        })
+        .ToList();
+
+    Console.WriteLine("--- Usando Select com GroupBy ---");
+    foreach(var item in groupByCompany)
+        Console.WriteLine($"A média de idade na {item.Company} é de {item.AverageAge}");
+}
+
+Agrupar();
+public class Employee
+{
+    public string Name { get; set; }
+    public string Company { get; set; }
+    public int Age { get; set; }
+}
+
+
 static bool IsPalindrome(string word)
 {
     if (string.IsNullOrEmpty(word))
